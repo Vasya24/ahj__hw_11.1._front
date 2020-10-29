@@ -5,7 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports = {
   devtool: 'source-map',
   devServer: {
-    port: 2000,
+    port: 4242,
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -20,6 +20,18 @@ module.exports = {
         },
       },
       {
+        test: /\.(woff(2)?|ttf|eot|otf\svg)(\?v=\d+\.\d+\.\d+)?$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'fonts/',
+            },
+          },
+        ],
+      },
+      {
         test: /\.(jpe?g|png|gif|svg)/,
         loader: 'file-loader?name=src/img/[name].[ext]',
       },
@@ -32,9 +44,11 @@ module.exports = {
         ],
       },
       {
-        test: /\.css$/,
+        test: /\.s[ac]ss$/i,
         use: [
-          MiniCssExtractPlugin.loader, 'css-loader',
+          'style-loader',
+          'css-loader',
+          'sass-loader',
         ],
       },
     ],
