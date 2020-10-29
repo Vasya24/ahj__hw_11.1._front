@@ -10,7 +10,7 @@ export default class Messages {
   }
 
   getMessages() {
-    interval(10000).pipe(
+    interval(5000).pipe(
       switchMap(
         () => ajax.getJSON('https://ahj-rxjs-1.herokuapp.com/messages/unread/')
           .pipe(
@@ -42,7 +42,7 @@ export default class Messages {
   formatDate(timestamp) {
     const date = new Date(timestamp);
     const day = date.getDate();
-    const month = date.getMonth();
+    const month = date.getMonth()+1;
     const year = date.getFullYear().toString().slice(2);
     const hours = date.getHours();
     const minutes = date.getMinutes();
